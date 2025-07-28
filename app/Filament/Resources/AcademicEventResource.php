@@ -34,15 +34,15 @@ class AcademicEventResource extends Resource
         return $table->columns([
             TextColumn::make('user.name')->label('Usuario'),
             TextColumn::make('title')->label('Título'),
-            DateColumn::make('date')->label('Fecha'),
+            TextColumn::make('date')->date()->label('Fecha'),
         ])
-        ->actions([
-            Tables\Actions\EditAction::make(),
-            Tables\Actions\DeleteAction::make(),
-        ])
-        ->bulkActions([
-            Tables\Actions\DeleteBulkAction::make(),
-        ]);
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\DeleteBulkAction::make(),
+            ]);
     }
 
     public static function getPages(): array

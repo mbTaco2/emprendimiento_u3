@@ -3,54 +3,46 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\BudgetResource\Pages;
-use App\Filament\Resources\BudgetResource\RelationManagers;
 use App\Models\Budget;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
 
 class BudgetResource extends Resource
 {
     protected static ?string $model = Budget::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $form->schema([
+            Select::make('user_id')->relationship('user', 'name')->required()->label('Usuario'),
+            TextInput::make('total')->numeric()->required()->label('Total'),
+            TextInput::make('period')->required()->label('Periodo'),
+            Textarea::make('categories')->label('Categorías (JSON)'),
+            Textarea::make('recommendations')->label('Recomendaciones'),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                //
-            ])
-            ->filters([
-                //
-            ])
+        return $table->columns([
+            TextColumn::make('user.name')->label('Usuario'),
+            TextColumn::make('total')->label('Total')->money('USD'),
+            TextColumn::make('period')->label('Periodo'),
+        ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

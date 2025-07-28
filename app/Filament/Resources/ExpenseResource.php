@@ -55,7 +55,7 @@ class ExpenseResource extends Resource
                 TextColumn::make('user.name')->label('Usuario'),
                 TextColumn::make('category')->label('Categoría')->searchable(),
                 TextColumn::make('amount')->label('Monto')->money('USD'),
-                DateColumn::make('date')->label('Fecha'),
+                TextColumn::make('date')->date()->label('Fecha'),
                 TextColumn::make('description')->label('Descripción')->limit(30),
             ])
             ->actions([
