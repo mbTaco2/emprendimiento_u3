@@ -1,5 +1,5 @@
 # Usar una imagen base de PHP 8.0 con FPM para Laravel
-FROM php:8.2-fpm
+FROM php:8.3-fpm
 
 # Paso 1: Instalar las dependencias necesarias para Laravel y las extensiones de PHP
 RUN apt-get update && apt-get install -y \
