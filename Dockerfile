@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libonig-dev \
     libxml2-dev \
-    libicu-dev \  # Agregar dependencias necesarias para intl
+    libicu-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath \
     && docker-php-ext-install intl  # Instalar la extensión intl
 
