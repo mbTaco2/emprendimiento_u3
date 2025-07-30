@@ -53,16 +53,25 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/bootstrap/cache \
     && chmod 664 /var/www/html/database/database.sqlite
 
-# Paso 12: Crear archivo .env para Laravel y ejecutar comandos
+# Paso 12: Crear archivo .env para Laravel y ejecutar comandos básicos
 RUN cp .env.example .env \
     && php artisan key:generate --force \
-    && php artisan migrate --force \
-    && php artisan storage:link
+    && composer dump-autoload
 
-# Paso 13: Limpiar dependencias de desarrollo para reducir tamaño
+# Paso 13: Crear script de inicialización
+RUN echo '#!/bin/bash\n\
+set -e\n\
+echo "🐖 Iniciando MiChanchito..."\n\
+php artisan migrate:fresh --force\n\
+php artisan storage:link\n\
+echo "✅ MiChanchito listo!"\n\
+exec apache2-foreground' > /usr/local/bin/start.sh \
+    && chmod +x /usr/local/bin/start.sh
+
+# Paso 14: Limpiar dependencias de desarrollo para reducir tamaño
 RUN npm prune --production && rm -rf ~/.npm
 
-# Paso 14: Configurar Apache DocumentRoot
+# Paso 15: Configurar Apache DocumentRoot
 RUN echo '<VirtualHost *:80>\n\
     DocumentRoot /var/www/html/public\n\
     <Directory /var/www/html/public>\n\
@@ -73,8 +82,8 @@ RUN echo '<VirtualHost *:80>\n\
     CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
 </VirtualHost>' > /etc/apache2/sites-available/000-default.conf
 
-# Paso 15: Exponer el puerto 80
+# Paso 16: Exponer el puerto 80
 EXPOSE 80
 
-# Paso 16: Comando de inicio - Apache en foreground
-CMD ["apache2-foreground"]
+# Paso 17: Usar el script de inicialización
+CMD ["/usr/local/bin/start.sh"]
