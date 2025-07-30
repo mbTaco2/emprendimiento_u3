@@ -2,6 +2,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import AiChatbot from '@/Components/AiChatbot';
 import { Link, usePage, router } from '@inertiajs/react';
 import { useState } from 'react';
 
@@ -133,21 +134,6 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </svg>
                                 Gastos
                             </NavLink>
-                            
-                            <NavLink
-                                href={route('tips')}
-                                active={route().current('tips')}
-                                className={`flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                                    route().current('tips') 
-                                        ? 'bg-pastelGreen text-white' 
-                                        : 'text-black hover:text-white hover:bg-pastelGreen'
-                                }`}
-                            >
-                                <svg className="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                                </svg>
-                                Consejos
-                            </NavLink>
                         </div>
                     </nav>
                     
@@ -213,6 +199,9 @@ export default function AuthenticatedLayout({ header, children }) {
                     onClick={() => setSidebarOpen(false)}
                 />
             )}
+
+            {/* Chatbot de IA */}
+            <AiChatbot />
         </div>
     );
 }

@@ -1,0 +1,10 @@
+{
+  "model": "llama-3.1-70b-versatile",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Dame un consejo financiero corto"
+    }
+  ],
+  "max_tokens": 50
+}

@@ -46,4 +46,44 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relación con gastos
+     */
+    public function expenses()
+    {
+        return $this->hasMany(Expense::class);
+    }
+
+    /**
+     * Relación con presupuestos
+     */
+    public function budgets()
+    {
+        return $this->hasMany(Budget::class);
+    }
+
+    /**
+     * Relación con eventos académicos
+     */
+    public function academicEvents()
+    {
+        return $this->hasMany(AcademicEvent::class);
+    }
+
+    /**
+     * Relación con consejos
+     */
+    public function tips()
+    {
+        return $this->hasMany(Tip::class);
+    }
+
+    /**
+     * Relación con notificaciones
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }
