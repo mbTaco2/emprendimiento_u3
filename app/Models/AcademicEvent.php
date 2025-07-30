@@ -11,6 +11,10 @@ class AcademicEvent extends Model
 
     protected $fillable = ['user_id', 'title', 'date', 'linked_expense_category'];
 
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

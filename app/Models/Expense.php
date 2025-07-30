@@ -11,6 +11,11 @@ class Expense extends Model
 
     protected $fillable = ['user_id', 'category', 'amount', 'date', 'description'];
 
+    protected $casts = [
+        'date' => 'datetime',
+        'amount' => 'decimal:2',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

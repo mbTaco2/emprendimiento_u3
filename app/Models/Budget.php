@@ -13,6 +13,7 @@ class Budget extends Model
 
     protected $casts = [
         'categories' => 'array',
+        'total' => 'decimal:2',
     ];
 
     public function user()
