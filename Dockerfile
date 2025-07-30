@@ -53,8 +53,9 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/bootstrap/cache \
     && chmod 664 /var/www/html/database/database.sqlite
 
-# Paso 12: Ejecutar comandos de Laravel (sin cache por ahora)
-RUN php artisan key:generate --force \
+# Paso 12: Crear archivo .env para Laravel y ejecutar comandos
+RUN cp .env.example .env \
+    && php artisan key:generate --force \
     && php artisan migrate --force \
     && php artisan storage:link
 
