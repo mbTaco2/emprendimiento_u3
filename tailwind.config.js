@@ -22,6 +22,10 @@ export default {
             white: '#FFFFFF',
             pink: '#FF0080FF', // Rosa pastel
             fondo: '#61D769FF',
+            gray: {
+                400: '#A0AEC0',
+                500: '#718096', // Gris oscuro
+            },
         },
     },
 
